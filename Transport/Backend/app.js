@@ -3,12 +3,14 @@ const mongoose=require('mongoose')
 const userRouter=require('./router/user')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+var cors = require('cors')
 
 require('dotenv').config();
 
 const app=express();
 
 app.use(cookieParser())
+app.use(cors())
 
 
 const connectToDb=()=>{
