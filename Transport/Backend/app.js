@@ -10,7 +10,7 @@ require('dotenv').config();
 const app=express();
 
 app.use(cookieParser())
-app.use(cors())
+app.use('*',cors())
 
 
 const connectToDb=()=>{
