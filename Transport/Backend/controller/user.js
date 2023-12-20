@@ -43,8 +43,7 @@ const LOG_IN = async (req, res) => {
             res.cookie('jwt', token, { expiresIn: 24 * EXPIRE_TIME_IN_MINS });
             return res.status(200).json({ success: true, result: "Logged in successfully!" })
         } else {
-            console.log('Not authenticated');
-            return res.status(403).json({ success: false, result: 'User is Unauthenticated' })
+            return res.status(403).json({ success: false, result: 'Incorrect password or username' })
         }
     } catch (error) {
         res.json({ success: false, result: error })
