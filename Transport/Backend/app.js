@@ -1,6 +1,7 @@
 const express=require('express')
 const mongoose=require('mongoose')
 const userRouter=require('./router/user')
+const bookingRouter=require('./router/booking')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 var cors = require('cors')
@@ -24,6 +25,7 @@ const connectToDb=()=>{
 app.use(bodyParser.json())
 
 app.use('/user', userRouter)
+app.use('/booking', bookingRouter)
 
 app.listen('3000',()=>{
     connectToDb()

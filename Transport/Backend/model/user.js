@@ -27,6 +27,10 @@ const userSchema = mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
+    },
+    Booking:{
+        type: [mongoose.Types.ObjectId],
+        ref:'booking'
     }
 });
 

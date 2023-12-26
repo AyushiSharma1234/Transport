@@ -39,7 +39,7 @@ const LOG_IN = async (req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email }, 'name email password isAdmin')
         if (user && bcrypt.compareSync(req.body.password, user.password)) {
-            const token = jwt.sign({ id: user.id, isAdmin: user.isAdmin }, process.env.SECRET_STRING, { expiresIn: '1w' });
+            const token = jwt.sign({ id: user.id, isAdmin: user.isAdmin,name:user.name }, process.env.SECRET_STRING, { expiresIn: '1w' });
             res.cookie('jwt', token, { expiresIn: 24 * EXPIRE_TIME_IN_MINS });
             return res.status(200).json({ success: true, result: "Logged in successfully!" })
         } else {
