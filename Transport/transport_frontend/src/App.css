@@ -2,6 +2,197 @@
   text-align: center;
 }
 
+
+.nav-ul {
+  background-color: skyblue;
+  padding: 5px;
+  color: #fff;
+}
+
+.nav-ul li{
+display: inline-block;
+padding: 10px;
+}
+
+.nav-ul li a {
+  text-decoration: none;
+  color: #fff;
+  padding: 5px;
+}
+
+
+/* Styles for Home Component */
+
+.container {
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.title {
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.info-section {
+  max-width: 100%; 
+  overflow: hidden; 
+  position: relative; 
+}
+.info-section h2 {
+  color: #555;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.info-section ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.info-section li {
+  margin-bottom: 8px;
+}
+
+.info-section img {
+  max-width: 100%; 
+  height: auto; 
+  display: block; 
+  margin: 0 auto; 
+  max-height: 250px; 
+}
+
+
+.image-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; 
+}
+
+.image-row img {
+  max-width: 100%;
+  height: auto;
+  max-height: 200px;
+}
+
+.main-paragraph,
+.closing-paragraph {
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.closing-paragraph {
+  font-style: italic;
+  color: #444;
+}
+
+
+/* AboutUs Page */
+
+.about-us {
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* Header */
+.about-us header {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.about-us header h1 {
+  font-size: 24px;
+}
+
+.about-us header p {
+  font-style: italic;
+  color: #555;
+}
+
+/* Section Titles */
+.about-us h2 {
+  color: #555;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+/* Paragraphs */
+.about-us p {
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+/* Unordered Lists */
+.about-us ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+/* List Items */
+.about-us li {
+  position: relative;
+  margin-bottom: 8px;
+  padding-left: 20px;
+}
+
+.about-us li:before {
+
+  position: absolute;
+  left: 0;
+  color: #333;
+}
+
+/* Flexbox for Lists */
+.about-us .company-values ul,
+.about-us .why-choose-us ul {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Contact Info Paragraphs */
+.about-us .contact-info p {
+  margin-bottom: 10px;
+}
+
+.about-us .contact-info p:last-child {
+  margin-bottom: 0;
+}
+
+/* Closing Paragraph */
+.about-us .closing-paragraph {
+  font-style: italic;
+  color: #444;
+}
+
+/* Boxes in a Row */
+.about-us .section-boxes {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.about-us .section-box {
+  flex-basis: calc(50% - 10px);
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -12,6 +203,15 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
+/* AboutUs Page */
+@media (max-width: 768px) {
+  .about-us .section-box {
+    flex-basis: 100%;
+  }
+}
+
+
 
 .App-header {
   background-color: #282c34;

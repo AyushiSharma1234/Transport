@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 
 export const Login = () => {
   interface IFormInput {
+    name: string;
     email: string;
     password: string;
   }
@@ -15,20 +16,16 @@ export const Login = () => {
     formState: { errors },
   } = useForm<IFormInput>();
 
-  const onSubmit = (data: IFormInput) => {
-    loginHandler(data)
-  };
-
-  const loginHandler = async (data:IFormInput) => {
-    let result = await fetch("http://localhost:3000/user/login", {
+  const onSubmit = async (data: IFormInput) => {
+    let result = await fetch("http://localhost:4000/user/login", {
       method: "post",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    result = await result.json();
-    console.log("result", result);
+    let newData = await result.json();
+    console.log("result", newData);
   };
 
   return (
@@ -36,6 +33,16 @@ export const Login = () => {
       <h3> Please Login </h3>
       <div style={{ display: "flex" }}>
         <form onSubmit={handleSubmit(onSubmit)}>
+          <TextField
+            label="Name"
+            type="search"
+            variant="standard"
+            {...register("name", {
+              required: true,
+            })}
+          />
+          <br />
+          {errors?.name?.type === "required" && <p>This field is required</p>}
           <TextField
             label="Email"
             type="search"

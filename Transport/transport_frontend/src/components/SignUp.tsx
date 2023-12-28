@@ -1,17 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 
 export const SignUp = () => {
-  const [signUpData, setSignUpData] = useState({
-    role: "",
-    name: "",
-    email: "",
-    password: "",
-    phone: "",
-  });
-
   interface IFormInput {
     role: string;
     name: string;
@@ -27,23 +19,15 @@ export const SignUp = () => {
     formState: { errors },
   } = useForm<IFormInput>();
 
-  const onSubmit = (data: IFormInput) => {
-    console.log(data);
-    setSignUpData(data);
-  };
-
-  console.log(signUpData);
-
-  const signUpHandler = async () => {
-    let result = await fetch("http://localhost:3000/user/signUp", {
+  const onSubmit = async (data: IFormInput) => {
+    let result = await fetch("http://localhost:4000/user/signUp", {
       method: "post",
-      body: JSON.stringify(signUpData),
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
       },
     });
     result = await result.json();
-    console.log("result", result);
   };
 
   return (
@@ -100,7 +84,7 @@ export const SignUp = () => {
 
           <br />
           <br />
-          <Button variant="contained" type="submit" onClick={signUpHandler}>
+          <Button variant="contained" type="submit">
             Submit
           </Button>
         </form>
