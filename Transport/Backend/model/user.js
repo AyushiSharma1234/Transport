@@ -31,6 +31,10 @@ const userSchema = mongoose.Schema({
     Booking:{
         type: [mongoose.Types.ObjectId],
         ref:'booking'
+    },
+    OTP:{
+        type:String,
+        default:null
     }
 });
 

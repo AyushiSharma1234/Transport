@@ -2,7 +2,7 @@ const Booking = require("../model/booking")
 const geolib = require('geolib');
 const jwt = require('jsonwebtoken');
 const User = require("../model/user");
-const bookingVerificationMail = require("../utils/sendBookingVerificatoinMail");
+const bookingVerificationMail = require("../mail/sendBookingVerificatoinMail");
 const getUser = require("../utils/getUser");
 
 const getError = (errorObj) => {

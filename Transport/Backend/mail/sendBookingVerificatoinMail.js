@@ -1,8 +1,6 @@
 const nodemailer = require("nodemailer");
-const { getUser } = require("./getUser");
 
-
-const bookingVerificationMail = async (name,email,bookingId) => {
+const bookingVerificationMail = async (name, email, bookingId) => {
     try {
         const transporter = nodemailer.createTransport({
             host: 'smtp.ethereal.email',
@@ -23,13 +21,11 @@ const bookingVerificationMail = async (name,email,bookingId) => {
             html: `<a href=${verfiyUrl} target="_blank">Click here to verify the booking.</a>`,
         }
 
-        const info=await transporter.sendMail(message);
+        const info = await transporter.sendMail(message);
     } catch (error) {
         console.log(error.message);
     }
-    
-
 }
 
-module.exports=bookingVerificationMail
+module.exports = bookingVerificationMail
 
