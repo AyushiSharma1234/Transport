@@ -27,7 +27,7 @@ app.use(bodyParser.json())
 app.use('/user', userRouter)
 app.use('/booking', bookingRouter)
 
-app.listen('3000',()=>{
+app.listen('4000',()=>{
     connectToDb()
-    console.log('App is running on PORT 3000')
+    console.log('App is running on PORT 4000')
 })
