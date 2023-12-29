@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import Login from "./components/Login";
+import Login from "./components/Login/Login";
 import { MapComponent } from "./components/MapComponent";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Authentication } from "./components/Authentication";
