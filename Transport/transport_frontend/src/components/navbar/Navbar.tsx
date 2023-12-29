@@ -6,8 +6,10 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
+import './navbar.css'
+import truckLogo from '../../assets/images/truckLogo.jpg'
 
-export function Layout() {
+export function Navbar() {
   const logoutUserHandler = async () => {
     let user = await fetch("http://localhost:4000/user/logout");
 
@@ -26,18 +28,20 @@ export function Layout() {
               color="inherit"
               aria-label="menu"
               sx={{ mr: 2 }}
-            ></IconButton>
+            >
+              <img src={truckLogo} alt="Logo" style={{height:"70px"}}/>
+            </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-             <Link to='/' >Home</Link> 
+              <Link to="/">Home</Link>
             </Typography>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Link to='/about' >About Us</Link> 
+              <Link to="/about">About Us</Link>
             </Typography>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Link to='/services' >Services</Link> 
+              <Link to="/services">Services</Link>
             </Typography>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Link to='/products' >Products</Link> 
+              <Link to="/products">Products</Link>
             </Typography>
             <Link to="/signup">
               <Button color="inherit">Sign Up</Button>
