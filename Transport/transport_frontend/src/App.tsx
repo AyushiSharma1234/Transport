@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Login } from "./components/Login";
-import { SignUp } from "./components/SignUp";
+import Login from "./components/Login";
 import { MapComponent } from "./components/MapComponent";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Authentication } from "./components/Authentication";
@@ -9,11 +8,14 @@ import { Home } from "./pages/Home";
 import { AboutUsPage } from "./pages/About";
 import { Services } from "./pages/Services";
 import { Products } from "./pages/Products";
+import { Navbar } from "./components/navbar/Navbar";
+import SignUp from "./components/Signup/SignUp";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route element={<Authentication />}>
             <Route path="/" element={<Home />} />

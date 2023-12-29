@@ -1,11 +1,11 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { Layout } from "../pages/Layout";
+// import { Layout } from "./Navbar";
 
 export const Authentication = () => {
   return (
     <>
-      <Layout />
+      {/* <Layout /> */}
       <Outlet />
     </>
   );

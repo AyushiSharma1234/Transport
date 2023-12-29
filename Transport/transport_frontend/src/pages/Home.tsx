@@ -5,9 +5,11 @@ import truckImage3 from '../assets/images/truck3.jpg'
 export const Home = () => {
 
   return (
-
     <>
       <div className="container">
+        <div className="bossImage">
+          {/* <img alt='main' src={truckImage3}/> */}
+        </div>
         <h1 className="title">Truck Transport Information</h1>
         <p className="main-paragraph">
           Trucks are a popular means of transporting goods across various
