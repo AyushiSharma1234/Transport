@@ -62,25 +62,30 @@ const LOG_OUT = async (req, res) => {
 }
 
 const FORGET_PASSWORD = async (req, res) => {
-    let { id } = getUser(req.cookies.jwt);
     try {
-        const user = await User.findOne({ _id: id });
-        forgetPasswordVerificationMail(user);
+        const user = await User.findOne({ email:req.body.email });
+        if(!user){
+            return res.status(200).json({ success: false, error: "User doesn't exists" })
+        }
+        forgetPasswordVerificationMail(user.email);
         res.status(200).send("Sent OTP")
     } catch (error) {
-        res.status(400).json({ success: false, error: 'Something went wrong!' })
+        res.status(400).json({ success: false, error: 'Something went wrong!',error })
     }
 }
 
 const VERIFY_FORGET_PASSWORD_OTP=async (req,res)=>{
-    let { id } = getUser(req.cookies.jwt);
-    const {otp,newPassword}=req.body;
+    // let { id } = getUser(req.cookies.jwt);
+    const {otp,newPassword,email}=req.body;
     try {
-        const user = await User.findOne({ _id: id });
+        const user = await User.findOne({ email:email});
+        if (!user) {
+            return res.status(200).json({ success: false, error: "User doesn't exists" })
+        }
         if(otp==user.OTP){
             const salt = bcrypt.genSaltSync();
             const hashedPassword = bcrypt.hashSync(newPassword, salt);
-            await User.findOneAndUpdate({ _id: id }, { password: hashedPassword,OTP:null});
+            await User.findOneAndUpdate({ email:email }, { password: hashedPassword,OTP:null});
             res.status(200).json({success:true,result:'Password Changed Successfully!'})
         }else{
             res.status(403).json({ success: false, result: 'Wrong OTP try again!' })

@@ -6,12 +6,12 @@ const bookingVerificationMail = async (name, email, bookingId) => {
             host: 'smtp.ethereal.email',
             port: 587,
             auth: {
-                user: 'sanford.koch93@ethereal.email',
-                pass: 'JftARWPgfssHTHswsz'
+                user: 'amara.lowe41@ethereal.email',
+                pass: 'VfaXxj2JYbvS2aKg75'
             }
         });
 
-        const verfiyUrl = `http://localhost:3000/booking/verify-booking/${bookingId}`
+        const verfiyUrl = `http://localhost:4000/booking/verify-booking/${bookingId}`
 
         const message = {
             from: 'info.transport@gmail.com',
