@@ -6,6 +6,10 @@ const bookingSchema = mongoose.Schema({
         type: {},
         required:true
     },
+    user:{
+        type: mongoose.Types.ObjectId,
+        ref: 'user'
+    },
     address: {
         type: String,
         required: true

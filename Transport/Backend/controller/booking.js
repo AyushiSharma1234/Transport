@@ -16,7 +16,6 @@ const getError = (errorObj) => {
     return errors;
 };
 
-
 const calculateAmount = (origion, destination) => {
     const ratePerKm = 5;
 
@@ -30,6 +29,19 @@ const calculateAmount = (origion, destination) => {
     return amoutToPay;
 }
 
+const GET_BOOKINGS = async (req, res) => {
+    try {
+        const bookings = await Booking.find({}).populate('user', '-OTP -isAdmin -password')
+        console.log('bookings', bookings);
+        if (!bookings) {
+            return res.status(200).json({ success: false, result: 'No Bookings' })
+        }
+        return res.status(200).json({ success: true, result: bookings })
+    } catch (error) {
+        res.status(400).json({ success: false, result: error })
+    }
+}
+
 const GET_QUOTE = async (req, res) => {
     const totalAmout = calculateAmount();
     res.json({ success: true, totalAmout })
@@ -37,8 +49,8 @@ const GET_QUOTE = async (req, res) => {
 
 const CREATE_BOOKING = async (req, res) => {
     let { id } = getUser(req.cookies.jwt);
-    if(!id){
-        res.status(403).json({sucess:false,result:"User is not authenticated"})
+    if (!id) {
+        res.status(403).json({ sucess: false, result: "User is not authenticated" })
     }
     const { name, email } = await User.findById(id).select('name email');
     const { origion, destination } = req.body.coordinates
@@ -52,7 +64,8 @@ const CREATE_BOOKING = async (req, res) => {
         address,
         amount: totalAmout,
         paymentStatus: false,
-        verified: false
+        verified: false,
+        user: id
     });
     try {
         const newBookingObj = await newBooking.save();
@@ -67,16 +80,16 @@ const CREATE_BOOKING = async (req, res) => {
 const BOOKING_VERIFICATION = async (req, res) => {
     let { id } = getUser(req.cookies.jwt);
     try {
-        const booking = await Booking.findOneAndUpdate({_id:req.params.id}, { verified: true }, { new: true });
+        const booking = await Booking.findOneAndUpdate({ _id: req.params.id }, { verified: true }, { new: true });
         if (!booking) {
             return res.status(404).json({ success: false, result: 'Booking not found!' })
         }
-        console.log('asdfadsfasd',booking._id);
-        const user=await User.findOneAndUpdate({ _id: id }, { $push: { Booking:booking._id } })
+        console.log('asdfadsfasd', booking._id);
+        const user = await User.findOneAndUpdate({ _id: id }, { $push: { Booking: booking._id } })
         console.log(user);
         res.status(200).json({ success: true, result: 'Booking confirmed' })
     } catch (error) {
-        res.status(400).json({ success: false, error:'Something went wrong' })
+        res.status(400).json({ success: false, error: 'Something went wrong' })
     }
 }
 
@@ -98,10 +111,25 @@ const DELIVERED = async () => {
     }
 }
 
+const AWAITING_PAYMENT = async (req, res) => {
+    try {
+        // const totalAwaitingAmout = await Booking.aggregate([{ $match: { paymentStatus: false } },
+        //     { $group: { _id: { totalAmout: { $sum: '$amount' } }} }]
+        // )
+        const totalAwaitingAmout = await Booking.aggregate([{$match:{paymentStatus:false}}])
+
+        res.status(200).json({ success: true, result: totalAwaitingAmout[0]})
+    } catch (error) {
+        res.status(400).json({ success: false, error })
+    }
+}
+
 module.exports = {
     CREATE_BOOKING,
     GET_QUOTE,
     CONFIRM_BOOKING,
     DELIVERED,
-    BOOKING_VERIFICATION
+    BOOKING_VERIFICATION,
+    GET_BOOKINGS,
+    AWAITING_PAYMENT
 }
