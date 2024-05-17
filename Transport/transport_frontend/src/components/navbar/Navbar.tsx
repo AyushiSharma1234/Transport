@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -6,15 +6,17 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
-import './navbar.css'
-import truckLogo from '../../assets/images/truckLogo.jpg'
+import "./navbar.css";
+import truckLogo from "../../assets/images/truckLogo.jpg";
+import { logoutUser } from "../../config/config";
+import { AppContext } from "../../context/AppContext";
 
 export function Navbar() {
-  const logoutUserHandler = async () => {
-    let user = await fetch("http://localhost:4000/user/logout");
+  const { auth } = useContext(AppContext);
 
-    let logoutUser = await user.json();
-    console.log("logout", logoutUser);
+  const logoutUserHandler = async () => {
+    let user = await logoutUser();
+    console.log("logout", user);
   };
 
   return (
@@ -46,13 +48,15 @@ export function Navbar() {
             <Link to="/signup">
               <Button color="inherit">Sign Up</Button>
             </Link>
-            <Link to="/login">
-              <Button color="inherit">Login</Button>
-            </Link>
-
-            <Button color="inherit" onClick={logoutUserHandler}>
-              Logout
-            </Button>
+            {!auth ? (
+              <Link to="/login">
+                <Button color="inherit">Login</Button>
+              </Link>
+            ) : (
+              <Button color="inherit" onClick={logoutUserHandler}>
+                Logout
+              </Button>
+            )}
           </Toolbar>
         </AppBar>
       </Box>

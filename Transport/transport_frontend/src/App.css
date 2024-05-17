@@ -199,6 +199,23 @@
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
 
+
+/* forgetPasswordModal */
+
+.forgetPasswordModalParent Button{
+float: right;
+}
+
+
+.forgetPasswordModalContent{
+  display: flex;
+  justify-content: space-between;
+}
+
+.forgetPasswordModalContent h2 {
+  padding: 0px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

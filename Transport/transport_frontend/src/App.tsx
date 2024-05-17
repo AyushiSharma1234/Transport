@@ -17,13 +17,13 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route element={<Authentication />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/" element={<Authentication />}>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutUsPage />} />
             <Route path="/services" element={<Services />} />
             <Route path="/products" element={<Products />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
             <Route path="/register" element={<MapComponent />} />
           </Route>
         </Routes>

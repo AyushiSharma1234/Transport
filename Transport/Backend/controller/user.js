@@ -75,14 +75,13 @@ const FORGET_PASSWORD = async (req, res) => {
 }
 
 const VERIFY_FORGET_PASSWORD_OTP=async (req,res)=>{
-    // let { id } = getUser(req.cookies.jwt);
-    const {otp,newPassword,email}=req.body;
+    const {OTP,newPassword,email}=req.body;
     try {
         const user = await User.findOne({ email:email});
         if (!user) {
             return res.status(200).json({ success: false, error: "User doesn't exists" })
         }
-        if(otp==user.OTP){
+        if(OTP==user.OTP){
             const salt = bcrypt.genSaltSync();
             const hashedPassword = bcrypt.hashSync(newPassword, salt);
             await User.findOneAndUpdate({ email:email }, { password: hashedPassword,OTP:null});
