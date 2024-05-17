@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const otpGenerator = require('otp-generator');
+const otpGenerator = require("otp-generator");
 const User = require("../model/user");
 
 const forgetPasswordVerificationMail = async (email) => {
@@ -15,19 +15,18 @@ const forgetPasswordVerificationMail = async (email) => {
             }
         });
 
-        const message = {
-            from: 'info.transport@gmail.com',
-            to: email,
-            subject: "Forget Password OTP",
-            text: `Hi ${user.name}`,
-            html: `<p>OTP : ${OTP} </p>`,
-        }
+    const message = {
+      from: "info.transport@gmail.com",
+      to: email,
+      subject: "Forget Password OTP",
+      text: `Hi ${user.name}`,
+      html: `<p>OTP : ${OTP} </p>`,
+    };
 
-        const info = await transporter.sendMail(message);
-    } catch (error) {
-        console.log(error.message);
-    }
-}
+    const info = await transporter.sendMail(message);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
-module.exports = forgetPasswordVerificationMail
-
+module.exports = forgetPasswordVerificationMail;

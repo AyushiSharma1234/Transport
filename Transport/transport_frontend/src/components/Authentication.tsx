@@ -1,12 +1,10 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-// import { Layout } from "./Navbar";
+import React, { useContext } from "react";
+import { Outlet, Navigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
 
 export const Authentication = () => {
-  return (
-    <>
-      {/* <Layout /> */}
-      <Outlet />
-    </>
-  );
+  const { auth } = useContext(AppContext);
+  console.log('auth',auth)
+
+  return auth ? <Outlet /> : <Navigate to={"/login"} />;
 };
