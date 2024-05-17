@@ -6,8 +6,8 @@ const bookingVerificationMail = async (name, email, bookingId) => {
             host: 'smtp.ethereal.email',
             port: 587,
             auth: {
-                user: 'amara.lowe41@ethereal.email',
-                pass: 'VfaXxj2JYbvS2aKg75'
+                user: 'estrella.pagac81@ethereal.email',
+                pass: 'k5qw12CUdZjnj2ptUS'
             }
         });
 

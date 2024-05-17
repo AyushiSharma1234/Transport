@@ -32,7 +32,6 @@ const calculateAmount = (origion, destination) => {
 const GET_BOOKINGS = async (req, res) => {
     try {
         const bookings = await Booking.find({}).populate('user', '-OTP -isAdmin -password')
-        console.log('bookings', bookings);
         if (!bookings) {
             return res.status(200).json({ success: false, result: 'No Bookings' })
         }
@@ -84,9 +83,7 @@ const BOOKING_VERIFICATION = async (req, res) => {
         if (!booking) {
             return res.status(404).json({ success: false, result: 'Booking not found!' })
         }
-        console.log('asdfadsfasd', booking._id);
         const user = await User.findOneAndUpdate({ _id: id }, { $push: { Booking: booking._id } })
-        console.log(user);
         res.status(200).json({ success: true, result: 'Booking confirmed' })
     } catch (error) {
         res.status(400).json({ success: false, error: 'Something went wrong' })
@@ -113,12 +110,25 @@ const DELIVERED = async () => {
 
 const AWAITING_PAYMENT = async (req, res) => {
     try {
-        // const totalAwaitingAmout = await Booking.aggregate([{ $match: { paymentStatus: false } },
-        //     { $group: { _id: { totalAmout: { $sum: '$amount' } }} }]
-        // )
-        const totalAwaitingAmout = await Booking.aggregate([{$match:{paymentStatus:false}}])
+        const awaitingBookings = await Booking.find({ paymentStatus: false })
+        const totalAwaitingAmount = await Booking.aggregate([{ $match: { paymentStatus: false } },
+        { $group: { _id: 'totalAmount', totalAmount: { $sum: "$amount" } } }]
+        )
+        res.status(200).json({ success: true, result: { awaitingBookings, awaitingTotalAmount: totalAwaitingAmount[0].totalAmount } })
+    } catch (error) {
+        res.status(400).json({ success: false, error })
+    }
+}
 
-        res.status(200).json({ success: true, result: totalAwaitingAmout[0]})
+const BOOKING_WITH_FILTER = async (req, res) => {
+    try {
+        const paymentStatusToBeSearch = req.params.paymentStatus;
+        if (paymentStatusToBeSearch != 'awaiting' && paymentStatusToBeSearch != 'fulfilled') {
+            return res.status(200).json({ success: false, result: 'Payment status either be awaiting or fulfilled' })
+        }
+        const paymentStatus = paymentStatusToBeSearch === 'awaiting' ? false : true
+        const Bookings = await Booking.aggregate([{ $match: { paymentStatus } }])
+        res.status(200).json({ success: true, result: Bookings })
     } catch (error) {
         res.status(400).json({ success: false, error })
     }
@@ -131,5 +141,6 @@ module.exports = {
     DELIVERED,
     BOOKING_VERIFICATION,
     GET_BOOKINGS,
-    AWAITING_PAYMENT
+    AWAITING_PAYMENT,
+    BOOKING_WITH_FILTER
 }

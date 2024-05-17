@@ -5,13 +5,13 @@ const User = require("../model/user");
 const forgetPasswordVerificationMail = async (email) => {
     const OTP = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false });
     try {
-       const user= await User.findOneAndUpdate({email:email}, { OTP })
+        const user = await User.findOneAndUpdate({ email: email }, { OTP })
         const transporter = nodemailer.createTransport({
             host: 'smtp.ethereal.email',
             port: 587,
             auth: {
-                user: 'amara.lowe41@ethereal.email',
-                pass: 'VfaXxj2JYbvS2aKg75'
+                user: 'estrella.pagac81@ethereal.email',
+                pass: 'k5qw12CUdZjnj2ptUS'
             }
         });
 
